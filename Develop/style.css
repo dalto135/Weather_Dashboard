@@ -25,7 +25,7 @@ input {
     flex: 2 2;
 }
 
-#city h1, #city h2, #city p {
+h2, #city h1, #city p {
     text-align: left;
 }
 
