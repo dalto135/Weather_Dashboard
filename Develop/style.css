@@ -1,0 +1,11 @@
+#input, #week {
+    display: flex;
+}
+
+#week div {
+    background-color: var(--cloudy);
+}
+
+#input {
+    justify-content: center;
+}
