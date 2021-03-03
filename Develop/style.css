@@ -1,11 +1,37 @@
+section, #city {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
 #input, #week {
     display: flex;
 }
 
-#week div {
-    background-color: var(--cloudy);
+input {
+    flex: 5 5;
 }
 
-#input {
-    justify-content: center;
+#current, #week div {
+    background: var(--cloudy);
+    border-color: black;
+}
+
+#search, #fiveday {
+    border-color: var(--teal);
+}
+
+#city {
+    flex: 2 2;
+}
+
+#city h1, #city h2, #city p {
+    text-align: left;
+}
+
+
+
+#current h1, #current p {
+    background: 0;
+    border: 0;
 }
