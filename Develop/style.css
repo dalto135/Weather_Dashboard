@@ -31,7 +31,11 @@ h2, #city h1, #city p {
 
 
 
-#current h1, #current p {
+p, #current h1 {
     background: 0;
     border: 0;
+}
+
+p {
+    font-size: 12pt;
 }
