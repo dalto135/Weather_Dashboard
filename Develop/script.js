@@ -5,18 +5,21 @@ let search = document.querySelector("#search");
 let current = document.querySelector("#current");
 let week = document.querySelector("#week");
 
+let historyList = document.querySelector(".history");
+
 //Function that populates the search history
 button.addEventListener("click", function() {
     let history = document.createElement("button");
     history.innerHTML = input.value;
+    history.classList.add("history");
     search.appendChild(history);
 
     history.addEventListener("click", function() {
         console.log(this.innerHTML);
     })
     history.addEventListener("click", getCurrent);
-    history.addEventListener("click", getFiveDay);
 });
+
 
 //Function that populates a field with the current weather conditions of the desired city
 button.addEventListener("click", getCurrent);
@@ -67,17 +70,16 @@ function getFiveDay(lat, lon) {
         console.log(data);
         current.children[4].innerHTML = "UV Index: " + data["current"]["uvi"];
 
+        week.innerHTML = "";
         for (i = 1; i <= 5; i++) {
             let tempF = Math.floor((data["daily"][i]["temp"]["day"] - 273.15) * 9/5 + 32);
             // let tempF = data["list"][i]["temp"]["day"]["imperial"];
-            let day = week.children[i - 1];
-            let dd = parseInt(moment().format("d")) + i;
-            console.log(dd);
-            day.innerHTML = "";
+            let day = document.createElement("div");
+            let d = parseInt(moment().format("d")) + i;
+            console.log(d);
 
             let date = document.createElement("p");
-            date.innerHTML = data["daily"][i]["dt"];
-            date.innerHTML = moment().format("M/" + dd + "/YYYY");
+            date.innerHTML = moment().format("M/" + d + "/YYYY");
             day.appendChild(date);
 
             let emoji = document.createElement("img");
@@ -91,6 +93,8 @@ function getFiveDay(lat, lon) {
             let humid = document.createElement("p");
             humid.innerHTML = "Humidity: " + data["daily"][i]["humidity"] + "%";
             day.appendChild(humid);
+
+            week.appendChild(day);
         }
 
       })
