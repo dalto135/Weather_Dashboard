@@ -1,14 +1,9 @@
-let body = document.querySelector("body");
-let input = document.querySelector("input");
+let input = document.querySelector(".input");
 let button = document.querySelector("button");
 let search = document.querySelector("#search");
 let current = document.querySelector("#current");
 
-let script = document.createElement("script");
-
 button.addEventListener("click", function() {
-    script.setAttribute("src", "http://api.openweathermap.org/data/2.5/weather?q={" + input.value + "}&appid={de53a40654766cb8ce20288a99c9f736}");
-    // script.setAttribute("src", "http://api.openweathermap.org/data/2.5/weather?q={" + input.value + "}&appid={1e3c0d8f0165df5cb4048999328d8b79}");
     current.children[0].innerHTML = input.value;
     let history = document.createElement("button");
     history.innerHTML = input.value;
@@ -19,5 +14,17 @@ button.addEventListener("click", function() {
     })
 });
 
-body.appendChild(script);
-// console.log(temperature.value);
+button.addEventListener("click", getApi);
+function getApi() {
+    var requestUrl = "http://api.openweathermap.org/data/2.5/weather?q=" + input.value + "&appid=de53a40654766cb8ce20288a99c9f736";
+    console.log(requestUrl);
+
+    fetch(requestUrl)
+      .then(function(response) {
+        return response.json();
+      })
+      .then(data => console.log(data))
+      .catch(function() {
+          console.log("Error");
+      });
+}
