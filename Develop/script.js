@@ -24,7 +24,7 @@ button.addEventListener("click", function() {
 //Function that populates a field with the current weather conditions of the desired city
 button.addEventListener("click", getCurrent);
 function getCurrent() {
-    let requestUrl = "http://api.openweathermap.org/data/2.5/weather?q=" + input.value + "&appid=de53a40654766cb8ce20288a99c9f736";
+    let requestUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + input.value + "&appid=de53a40654766cb8ce20288a99c9f736";
     console.log(requestUrl);
 
     fetch(requestUrl)
@@ -39,7 +39,7 @@ function getCurrent() {
         current.children[0].innerHTML = data["name"] + moment().format(" (M/D/YYYY) ");
 
         let image = document.createElement("img");
-        image.setAttribute("src", "http://openweathermap.org/img/wn/" + data["weather"][0]["icon"] + "@2x.png");
+        image.setAttribute("src", "https://openweathermap.org/img/wn/" + data["weather"][0]["icon"] + "@2x.png");
         current.children[0].appendChild(image);
 
         current.children[1].innerHTML = "Temperature: " + tempF + " F";
@@ -59,7 +59,7 @@ function getCurrent() {
 
 //Function that accesses the UV Index and five day forecast
 function getFiveDay(lat, lon) {
-    let requestUrl = "http://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&appid=de53a40654766cb8ce20288a99c9f736";
+    let requestUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&appid=de53a40654766cb8ce20288a99c9f736";
     console.log(requestUrl);
 
     fetch(requestUrl)
@@ -83,7 +83,7 @@ function getFiveDay(lat, lon) {
             day.appendChild(date);
 
             let emoji = document.createElement("img");
-            emoji.setAttribute("src", "http://openweathermap.org/img/wn/" + data["daily"][i]["weather"][0]["icon"] + "@2x.png");
+            emoji.setAttribute("src", "https://openweathermap.org/img/wn/" + data["daily"][i]["weather"][0]["icon"] + "@2x.png");
             day.appendChild(emoji);
 
             let temp = document.createElement("p");
