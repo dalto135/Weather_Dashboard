@@ -39,3 +39,7 @@ p, #current h1 {
 p {
     font-size: 12pt;
 }
+
+image {
+    max-height: 10px;
+}

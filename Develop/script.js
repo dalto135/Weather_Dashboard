@@ -1,11 +1,12 @@
+//Global variables defined
 let input = document.querySelector(".input");
 let button = document.querySelector("button");
 let search = document.querySelector("#search");
 let current = document.querySelector("#current");
 let week = document.querySelector("#week");
 
+//Function that populates the search history
 button.addEventListener("click", function() {
-    current.children[0].innerHTML = input.value;
     let history = document.createElement("button");
     history.innerHTML = input.value;
     search.appendChild(history);
@@ -17,6 +18,7 @@ button.addEventListener("click", function() {
     history.addEventListener("click", getFiveDay);
 });
 
+//Function that populates a field with the current weather conditions of the desired city
 button.addEventListener("click", getCurrent);
 function getCurrent() {
     let requestUrl = "http://api.openweathermap.org/data/2.5/weather?q=" + input.value + "&appid=de53a40654766cb8ce20288a99c9f736";
@@ -31,11 +33,20 @@ function getCurrent() {
 
         let tempF = Math.floor((data["main"]["temp"] - 273.15) * 9/5 + 32);
 
-        current.children[0].innerHTML = data["name"] + moment().format(" (M/D/YYYY) ") + data["weather"][0]["description"];
+        current.children[0].innerHTML = data["name"] + moment().format(" (M/D/YYYY) ");
+
+        let image = document.createElement("img");
+        image.setAttribute("src", "http://openweathermap.org/img/wn/" + data["weather"][0]["icon"] + "@2x.png");
+        current.children[0].appendChild(image);
+
         current.children[1].innerHTML = "Temperature: " + tempF + " F";
         current.children[2].innerHTML = "Humidity: " + data["main"]["humidity"] + "%";
         current.children[3].innerHTML = "Wind Speed: " + data["wind"].speed + " mph";
-        current.children[4].innerHTML = "UV Index: " + data["name"];
+
+        let lat = data["coord"]["lat"];
+        let lon = data["coord"]["lon"];
+        getFiveDay(lat, lon);
+        
 
       })
       .catch(function() {
@@ -43,31 +54,34 @@ function getCurrent() {
       });
 }
 
-button.addEventListener("click", getFiveDay);
-function getFiveDay() {
-    let requestUrl = "http://api.openweathermap.org/data/2.5/forecast?q=" + input.value + "&cnt=5&appid=de53a40654766cb8ce20288a99c9f736";
+//Function that accesses the UV Index and five day forecast
+function getFiveDay(lat, lon) {
+    let requestUrl = "http://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&appid=de53a40654766cb8ce20288a99c9f736";
     console.log(requestUrl);
 
     fetch(requestUrl)
-    .then(function(response) {
+      .then(function(response) {
         return response.json();
-    })
-    .then(function(data) {
+      })
+      .then(function(data) {
         console.log(data);
+        current.children[4].innerHTML = "UV Index: " + data["current"]["uvi"];
 
-        
-
-        for (i = 0; i < 5; i++) {
-            let tempF = Math.floor((data["list"][i]["main"]["temp"] - 273.15) * 9/5 + 32);
-            let day = week.children[i];
+        for (i = 1; i <= 5; i++) {
+            let tempF = Math.floor((data["daily"][i]["temp"]["day"] - 273.15) * 9/5 + 32);
+            // let tempF = data["list"][i]["temp"]["day"]["imperial"];
+            let day = week.children[i - 1];
+            let dd = parseInt(moment().format("d")) + i;
+            console.log(dd);
             day.innerHTML = "";
 
             let date = document.createElement("p");
-            date.innerHTML = moment().format("M/D/YYYY");
+            date.innerHTML = data["daily"][i]["dt"];
+            date.innerHTML = moment().format("M/" + dd + "/YYYY");
             day.appendChild(date);
 
-            let emoji = document.createElement("p");
-            emoji.innerHTML = data["list"][i]["weather"][0]["description"];
+            let emoji = document.createElement("img");
+            emoji.setAttribute("src", "http://openweathermap.org/img/wn/" + data["daily"][i]["weather"][0]["icon"] + "@2x.png");
             day.appendChild(emoji);
 
             let temp = document.createElement("p");
@@ -75,10 +89,13 @@ function getFiveDay() {
             day.appendChild(temp);
 
             let humid = document.createElement("p");
-            humid.innerHTML = "Humidity: " + data["list"][i]["main"]["humidity"] + "%";
+            humid.innerHTML = "Humidity: " + data["daily"][i]["humidity"] + "%";
             day.appendChild(humid);
         }
-        
-        
-    })
+
+      })
+      .catch(function() {
+        console.log("Error");
+      });
 }
+
