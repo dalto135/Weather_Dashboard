@@ -2,14 +2,37 @@
 let input = document.querySelector(".input");
 let button = document.querySelector("button");
 let current = document.querySelector("#current");
+let historyCount = document.querySelector(".historycount");
+// let history = document.createElement("button");
+
+let j = 0;
+if (localStorage.length > 0) {
+  j = localStorage.length - 1;
+}
+
+
+localStorage.setItem("j", j);
+let br = document.createElement("br");
+console.log(j);
+
+for (i = 0; i < j; i++) {
+  let rem = document.createElement("button");
+  rem.classList.add("history");
+  rem.innerHTML = localStorage.getItem(i);
+  historyCount.appendChild(rem);
+  historyCount.appendChild(br);
+}
+
+// if (historyCount.children > 0) {
+//   historyCount.classList.add("purple");
+// }
 
 //Function that populates the search history
 button.addEventListener("click", createHistory);
 function createHistory() {
-  let historyCount = document.querySelector(".historycount");
+  
   let history = document.createElement("button");
-  let br = document.createElement("br");
-
+  
   history.innerHTML = input.value;
   history.classList.add("history");
 
@@ -17,13 +40,20 @@ function createHistory() {
   historyCount.appendChild(history);
   historyCount.appendChild(br);
 
+  localStorage.setItem(j, history.innerHTML);
+  j++;
+  localStorage.setItem("j", j);
+  console.log(j);
+
   history.addEventListener("click", function() {
-      console.log(this.innerHTML);
-      input.value = this.innerHTML;
+    console.log(this.innerHTML);
+    input.value = this.innerHTML;
   })
   history.addEventListener("click", getCurrent);
   history.addEventListener("click", createHistory);
 }
+
+
 
 
 //Function that populates a field with the current weather conditions of the desired city
@@ -60,7 +90,7 @@ function getCurrent() {
       });
 }
 
-//Function that accesses the UV Index and five day forecast, this function is called in the getCurrent function
+//Function that accesses the UV Index and five day forecast, this function is called by the getCurrent function
 function getFiveDay(lat, lon) {
     let requestUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&appid=de53a40654766cb8ce20288a99c9f736";
 
