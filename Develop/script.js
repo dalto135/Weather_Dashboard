@@ -8,17 +8,23 @@ let week = document.querySelector("#week");
 let historyList = document.querySelector(".history");
 
 //Function that populates the search history
-button.addEventListener("click", function() {
-    let history = document.createElement("button");
-    history.innerHTML = input.value;
-    history.classList.add("history");
-    search.appendChild(history);
+button.addEventListener("click", createHistory);
+function createHistory() {
+  let history = document.createElement("button");
+  let br = document.createElement("br");
 
-    history.addEventListener("click", function() {
-        console.log(this.innerHTML);
-    })
-    history.addEventListener("click", getCurrent);
-});
+  history.innerHTML = input.value;
+  history.classList.add("history");
+  search.appendChild(history);
+  search.appendChild(br);
+
+  history.addEventListener("click", function() {
+      console.log(this.innerHTML);
+      input.value = this.innerHTML;
+  })
+  history.addEventListener("click", getCurrent);
+  history.addEventListener("click", createHistory);
+}
 
 
 //Function that populates a field with the current weather conditions of the desired city
@@ -34,7 +40,8 @@ function getCurrent() {
       .then(function(data) {
         console.log(data);
 
-        let tempF = Math.floor((data["main"]["temp"] - 273.15) * 9/5 + 32);
+        let tempD = (data["main"]["temp"] - 273.15) * 9/5 + 32;
+        let tempF = tempD.toFixed(1);
 
         current.children[0].innerHTML = data["name"] + moment().format(" (M/D/YYYY) ");
 
@@ -72,9 +79,12 @@ function getFiveDay(lat, lon) {
 
         week.innerHTML = "";
         for (i = 1; i <= 5; i++) {
-            let tempF = Math.floor((data["daily"][i]["temp"]["day"] - 273.15) * 9/5 + 32);
-            // let tempF = data["list"][i]["temp"]["day"]["imperial"];
+            let tempD = (data["daily"][i]["temp"]["day"] - 273.15) * 9/5 + 32;
+            // let tempD = data["list"][i]["temp"]["day"]["imperial"];
+            let tempF = tempD.toFixed(2);
+            
             let day = document.createElement("div");
+
             let d = parseInt(moment().format("d")) + i;
             console.log(d);
 

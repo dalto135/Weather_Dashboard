@@ -1,15 +1,27 @@
-section, ul, #city, #week {
+section, #city, #week {
     border: 0;
     margin: 0;
     padding: 0;
+}
+
+p {
+    font-size: 12pt;
+}
+
+image {
+    max-height: 10px;
+}
+
+input {
+    flex: 5 5;
 }
 
 #input, #week {
     display: flex;
 }
 
-input {
-    flex: 5 5;
+#input {
+    border-color: var(--teal);
 }
 
 #current, #week div {
@@ -17,8 +29,8 @@ input {
     border-color: black;
 }
 
-#search, #fiveday {
-    border-color: var(--teal);
+#search {
+    border-color: var(--niceTeal);
 }
 
 #city {
@@ -29,17 +41,15 @@ h2, #city h1, #city p {
     text-align: left;
 }
 
-
-
 p, #current h1 {
     background: 0;
     border: 0;
 }
 
-p {
-    font-size: 12pt;
+#red {
+    border-color: var(--red);
 }
 
-image {
-    max-height: 10px;
+#fiveday {
+    border-color: var(--yellow);
 }
