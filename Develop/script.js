@@ -27,7 +27,7 @@ for (let i = 0; i < array.length; i++) {
 }
 
 
-//Function that populates the search history
+//Function that populates the search history when the user types in cities
 button.addEventListener("click", createHistory);
 function createHistory() {
   
