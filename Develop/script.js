@@ -3,29 +3,29 @@ let input = document.querySelector(".input");
 let button = document.querySelector("button");
 let current = document.querySelector("#current");
 let historyCount = document.querySelector(".historycount");
-// let history = document.createElement("button");
 
-let j = 0;
-if (localStorage.length > 0) {
-  j = localStorage.length - 1;
+//Populates the search history upon page refresh using localStorage
+let array = [];
+let localArray = JSON.parse(localStorage.getItem("array"));
+if (localArray !== null) {
+  array = localArray;
 }
 
-
-localStorage.setItem("j", j);
-let br = document.createElement("br");
-console.log(j);
-
-for (i = 0; i < j; i++) {
+for (let i = 0; i < array.length; i++) {
   let rem = document.createElement("button");
   rem.classList.add("history");
-  rem.innerHTML = localStorage.getItem(i);
+  rem.innerHTML = array[i];
   historyCount.appendChild(rem);
-  historyCount.appendChild(br);
+  historyCount.classList.add("purple");
+
+  rem.addEventListener("click", function() {
+    console.log(this.innerHTML);
+    input.value = this.innerHTML;
+  })
+  rem.addEventListener("click", getCurrent);
+  rem.addEventListener("click", createHistory);
 }
 
-// if (historyCount.children > 0) {
-//   historyCount.classList.add("purple");
-// }
 
 //Function that populates the search history
 button.addEventListener("click", createHistory);
@@ -38,12 +38,9 @@ function createHistory() {
 
   historyCount.classList.add("purple");
   historyCount.appendChild(history);
-  historyCount.appendChild(br);
-
-  localStorage.setItem(j, history.innerHTML);
-  j++;
-  localStorage.setItem("j", j);
-  console.log(j);
+  
+  array.push(history.innerHTML);
+  localStorage.setItem("array", JSON.stringify(array));
 
   history.addEventListener("click", function() {
     console.log(this.innerHTML);
