@@ -112,7 +112,7 @@ function getFiveDay(lat, lon) {
             let tempD = (data["daily"][i]["temp"]["day"] - 273.15) * 9/5 + 32;
             let tempF = tempD.toFixed(2);
             let day = document.createElement("div");
-            let d = parseInt(moment().format("d")) + i;
+            let d = parseInt(moment().format("D")) + i;
 
             let date = document.createElement("p");
             date.innerHTML = moment().format("M/" + d + "/YYYY");
