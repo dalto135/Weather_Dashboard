@@ -25,7 +25,6 @@ for (let i = 0; i < array.length; i++) {
     input.value = this.innerHTML;
   })
   rem.addEventListener("click", getCurrent);
-  rem.addEventListener("click", createHistory);
 }
 
 //Clears search history
@@ -55,7 +54,6 @@ function createHistory() {
     input.value = this.innerHTML;
   })
   history.addEventListener("click", getCurrent);
-  history.addEventListener("click", createHistory);
 }
 
 
