@@ -2,4 +2,4 @@ An application that takes a city name as user input and displays current weather
 
 ![Screenshot](https://github.com/dalto135/06-Homework/blob/master/Screen%20Shot%202021-03-06%20at%202.46.36%20PM.png)
 
-https://dalto135.github.io/
+https://dalto135.github.io/Weather_Dashboard/
