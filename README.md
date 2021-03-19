@@ -16,5 +16,5 @@ An application that takes a city name as user input and displays current weather
 ## License
 MIT
 
-## Collaborators
+## Contact
 Dalton Wilkins - wilkins.271@osu.edu
