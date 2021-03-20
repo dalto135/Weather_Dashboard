@@ -52,6 +52,7 @@ function createHistory() {
   while (array.length > 10) {
     array.shift();
   }
+  localStorage.setItem("cities", JSON.stringify(array));
 
   historyCount.innerHTML = "";
 
@@ -70,7 +71,7 @@ function createHistory() {
     history.addEventListener("click", getCurrent);
   }
 
-  localStorage.setItem("cities", JSON.stringify(array));
+  
 }
 
 
