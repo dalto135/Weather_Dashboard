@@ -9,7 +9,7 @@ button.addEventListener("click", getCurrent);
 
 //Populates the search history upon page refresh using localStorage
 let array = [];
-let localArray = JSON.parse(localStorage.getItem("array"));
+let localArray = JSON.parse(localStorage.getItem("cities"));
 if (localArray !== null) {
   array = localArray;
 }
@@ -31,29 +31,46 @@ for (let i = 0; i < array.length; i++) {
 let clear = document.querySelector("#clear");
 clear.addEventListener("click", function() {
   array = [];
-  localStorage.setItem("array", JSON.stringify(array));
+  localStorage.setItem("cities", JSON.stringify(array));
   historyCount.innerHTML = "";
   historyCount.classList.remove("purple");
 })
 
-//Populates the search history when the user types in cities
+//Populates the search history when the user types in cities, limits history to ten items and does not allow repeats
 function createHistory() {
-  
-  let history = document.createElement("button");
-  
-  history.innerHTML = input.value;
-  history.classList.add("history");
+  let boo = false;
+  for (let i = 0; i < array.length; i++) {
+    if (array[i] === input.value) {
+      boo = true;
+    }
+  }
 
-  historyCount.classList.add("purple");
-  historyCount.appendChild(history);
-  
-  array.push(history.innerHTML);
-  localStorage.setItem("array", JSON.stringify(array));
+  if (boo === false) {
+    array.push(input.value);
+  }
 
-  history.addEventListener("click", function() {
-    input.value = this.innerHTML;
-  })
-  history.addEventListener("click", getCurrent);
+  while (array.length > 10) {
+    array.shift();
+  }
+
+  historyCount.innerHTML = "";
+
+  for (let i = 0; i < array.length; i++) {
+    let history = document.createElement("button");
+  
+    history.innerHTML = array[i];
+    history.classList.add("history");
+
+    historyCount.classList.add("purple");
+    historyCount.appendChild(history);
+
+    history.addEventListener("click", function() {
+      input.value = this.innerHTML;
+    })
+    history.addEventListener("click", getCurrent);
+  }
+
+  localStorage.setItem("cities", JSON.stringify(array));
 }
 
 
