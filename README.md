@@ -11,7 +11,7 @@
 [Contact](#Contact)
 
 ## Link
-https://dalto135.github.io/weather_dashboard/
+https://dalto135.github.io/weather-dashboard/
 
 ## Technologies
 HTML, CSS and Javascript
