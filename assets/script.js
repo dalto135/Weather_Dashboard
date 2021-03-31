@@ -128,10 +128,10 @@ function getFiveDay(lat, lon) {
             let tempD = (data["daily"][i]["temp"]["day"] - 273.15) * 9/5 + 32;
             let tempF = tempD.toFixed(2);
             let day = document.createElement("div");
-            let d = parseInt(moment().format("D")) + i;
+            let d = moment().add(i, 'days').format("M/D/YYYY");
 
             let date = document.createElement("p");
-            date.innerHTML = moment().format("M/" + d + "/YYYY");
+            date.innerHTML = d;
             day.appendChild(date);
 
             let emoji = document.createElement("img");
