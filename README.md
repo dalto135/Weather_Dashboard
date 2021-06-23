@@ -27,4 +27,4 @@ An application that takes a city name as user input and displays current weather
 MIT
 
 ## Contact
-Dalton Wilkins - wilkins.271@osu.edu
+Dalton Wilkins - daltongh@gmail.com
