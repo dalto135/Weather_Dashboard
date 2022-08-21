@@ -38,7 +38,7 @@ img {
     border-color: var(--teal);
 }
 
-#current, #week div {
+#week div {
     background: var(--cloudy);
     border-color: black;
 }
@@ -47,6 +47,10 @@ img {
     background: rgb(0, 96, 128);
     color: white;
     text-shadow: 2px 2px 2px black;
+}
+
+#week div {
+    margin: 0px 3px 6px 3px;
 }
 
 #city {
@@ -66,9 +70,21 @@ p, #current h1 {
     border-color: var(--red);
 }
 
+#red, #fiveday {
+    margin: 0px 6px 6px 3px;
+}
+
+#search {
+    margin: 0px 3px 6px 6px;
+}
+
 #fiveday {
     border-color: var(--yellow);
 }
+
+/* #fiveday h2 {
+    margin: 6px 3px 0px 3px;
+} */
 
 .historycount {
     display: flex;
@@ -78,10 +94,36 @@ p, #current h1 {
     padding: 0;
 }
 
+.historycount button {
+    margin: 3px;
+}
+
 .purple {
     border: 1px solid var(--purple);
     margin: 4px;
     padding: 4px;
+}
+
+header h1 {
+    border: None;
+    background-color: rgba(0, 0, 0, 0);
+    color: rgba(255, 255, 255, 0.75)
+}
+
+#current {
+    border: None;
+}
+
+#current h1, #current p {
+    color: rgba(255, 255, 255, 0.75)
+}
+
+header, #search, #red, #fiveday {
+    border-radius: 12px;
+}
+
+header {
+    margin: 6px;
 }
 
 @media screen and (max-width: 980px) {
